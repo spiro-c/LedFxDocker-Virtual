@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  mopidy:
+    image: ivdata/mopidy
+    container_name: mopidy-fx
+    network_mode: host
+#    environment:
+#      - UPDATE=1
+    ports:
+      - 6680:6680
+      - 6600:6600
+    volumes:
+      - ./fifo:/tmp/snapcast/
+      - ./music:/media/music
+      - ./mopidydata:/mopidy
+  snapserver:
+    image: ivdata/snapserver
+    container_name: snapcastserver-fx
+    ports:
+      - 1704:1704
+      - 1705:1705
+      - 1780:1780
+    volumes:
+      - ./fifo:/tmp/snapcast/
+  ledfx:
+    image: spiroc/ledfx:latest
+    container_name: ledfx
+    network_mode: host
+    environment:
+      - HOST=Ip of snapcast server
+    ports:
+      - 8888:8888
+    volumes:
+      - ./ledfx-config:/root/.ledfx
+  
