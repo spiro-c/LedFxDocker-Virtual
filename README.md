@@ -1,3 +1,6 @@
+[![Docker Pulls](https://img.shields.io/docker/pulls/spirocekano/ledfx-virtuals?logo=docker&style=flat-square)](https://hub.docker.com/r/spirocekano/ledfx-virtuals)
+
+
 This is fork from [LedFxDocker](https://github.com/ShiromMakkad/LedFxDocker)
 
 # LedFxDocker
