@@ -1,7 +1,7 @@
-[![Docker Pulls](https://img.shields.io/docker/pulls/shirom/ledfx.svg?style=for-the-badge&logo=github)](https://hub.docker.com/repository/docker/shirom/ledfx)
+This is fork from [LedFxDocker]https://github.com/ShiromMakkad/LedFxDocker
 
 # LedFxDocker
-A Docker Image for [LedFx](https://github.com/LedFx/LedFx.git). 
+A Docker Image for the latest Virtuals branch of [LedFx](https://github.com/LedFx/LedFx.git). 
 
 ## Introduction
 Compiling LedFx to run on different systems is difficult because of all the dependencies. It's especially difficult on a Raspberry Pi (building LedFx on ARM takes over 2 hours). This image has everything built for you, and it can get audio from a [Snapcast server](https://github.com/badaix/snapcast) or a [named pipe](https://www.linuxjournal.com/article/2156).
@@ -16,21 +16,23 @@ version: '3'
 
 services:
   ledfx:
-    image: shirom/ledfx 
-    container_name: ledfx
+    image: spirocekano/ledfx-virtuals
+    container_name: ledfx-virtuals
+    hostname: ledfx-virtuals
+    network_mode: host
     environment: 
       - HOST=host.docker.internal
       - FORMAT=-r 44100 -f S16_LE -c 2
     ports:
       - 8888:8888
     volumes:
-      - ./ledfx-config:/app/ledfx-config
+      - ./ledfx-config:/root/.ledfx
       - ~/audio:/app/audio
 ```
 ### Volumes
 Volume | Function 
 --- | -------- 
-`/app/ledfx-config` | This is where the LedFx configuration files are stored. Most people won't need to change anything here manually, so feel free to use a [named volume](https://stackoverflow.com/questions/43248988/how-do-named-volumes-work-in-docker).
+`/root/.ledfx` | This is where the LedFx configuration files are stored. Most people won't need to change anything here manually, so feel free to use a [named volume](https://stackoverflow.com/questions/43248988/how-do-named-volumes-work-in-docker).
 `/app/audio` | This folder contains a [named pipe](https://www.linuxjournal.com/article/2156) called `stream` that you can write audio data to. This can be connected to Mopidy, FFmpeg, system audio, or more. See [Sending Audio](#sending-audio) for more information. This volume doesn't need to be set if the `FORMAT` environment variable isn't set. 
 
 ### Environment Variables
@@ -58,23 +60,10 @@ To play system audio, you could use Docker's `--device` flag or use FFmpeg to re
 
 If you want to use a method not mentioned here or one that doesn't have an explicit named pipe option, your easiest method would probably be playing the audio on the system; then use a tool like FFmpeg or PulseAudio to record the system's audio and send it to the container. 
 
-Check out the `examples/` folder for ideas. Once you've completed your setup, consider sharing your compose file; I'm always looking for new examples to add. 
-
-### Balena Sound
-
-[balenaSound](https://github.com/balenalabs/balena-sound) is a Snapserver that's already connected to Bluetooth, Airplay, Spotify, and UPNP that's very easy to set up. Unfortunately, you have to be fully integrated into Balena's system to use it. This means deploying on balenaOS and using Balena's build tools. However, I've integrated this image into their ecosystem, so it will run alongside balenaSound on the same device. 
-
-Just click the button below to deploy it!
-
-[![balena deploy button](https://www.balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/ShiromMakkad/LedFx-balenaSound)
-
-See [LedFx-balenaSound](https://github.com/ShiromMakkad/LedFx-balenaSound) for hardware requirements and other information. 
-
-You could also run a standalone instance of balenaSound on one device, LedFx on another device, and connect the two using the `HOST` environment variable. 
 
 ## Support Information
-- Shell access while the container is running: `docker exec -it ledfx /bin/bash`
-- Logs: `docker logs ledfx`
+- Shell access while the container is running: `docker exec -it ledfx-virtuals /bin/bash`
+- Logs: `docker logs ledfx-virtuals`
 
 ## Todo
 - Add a Mopidy example
@@ -85,14 +74,8 @@ You could also run a standalone instance of balenaSound on one device, LedFx on 
 
 If you want to make local modifications to this image for development purposes or just to customize the logic:
 ```
-git clone https://github.com/ShiromMakkad/LedFxDocker.git
+git clone https://github.com/spiro-c/LedFxDocker.git@Virtuals
 cd LedFxDocker
-docker build -t shirom/ledfx .
+docker build -t spirocekano/ledfx-virtuals .
 ```
-To build for `x86-64` and `arm` use:
-
-`docker buildx build --platform linux/amd64,linux/arm/v7 --tag shirom/ledfx --output type=image,push=false .`
-
-Keep in mind, this command takes over 2 hours to finish for `arm` because of the `aubio` installation.
-
-If you're looking for ways to contribute, check the TODO or contribute to `examples/`. 
+ 

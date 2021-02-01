@@ -2,14 +2,14 @@ version: '3'
 
 services:
   ledfx:
-    image: ledfx:latest
-    container_name: ledfx
+    image: ledfx-virtuals:latest
+    container_name: ledfx-virtuals
     network_mode: host
     build:
       context: .
     environment: 
-      - HOST=host.docker.internal
+      - HOST=snapcas server ip address
       - FORMAT=-r 44100 -f S16_LE -c 2
     volumes:
-      - ./ledfx-config:/app/ledfx-config
+      - ./ledfx-config:/root/.ledfx
       - ~/audio:/app/audio
