@@ -15,7 +15,7 @@ This image supports `x86-64` . Docker will automatically pull the appropriate ve
 version: '3'
 
 services:
-  ledfx:
+  ledfx-virtuals:
     image: spirocekano/ledfx-virtuals
     container_name: ledfx-virtuals
     hostname: ledfx-virtuals
