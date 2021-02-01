@@ -11,8 +11,8 @@ RUN set -ex \
                        libatlas3-base \
                        portaudio19-dev \
                        pulseaudio
-# Install LedFx with pip’s --user option, all its files will be installed in the .local directory of the current user’s home directory. 
-# That means all the files will end up in a single place for easily copy in sedond stage.
+# Install LedFx with pip’s --user option, all the files will be installed in the .local directory of the current user home directory. 
+# That means all the files will end up in a single place for easily copy in second stage.
 
 RUN pip install --user --no-cache git+https://github.com/LedFx/LedFx@Virtuals
 

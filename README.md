@@ -74,7 +74,7 @@ If you want to use a method not mentioned here or one that doesn't have an expli
 
 If you want to make local modifications to this image for development purposes or just to customize the logic:
 ```
-git clone https://github.com/spiro-c/LedFxDocker.git@Virtuals
+git clone https://github.com/spiro-c/LedFxDocker.git -b Virtuals
 cd LedFxDocker
 docker build -t spirocekano/ledfx-virtuals .
 ```
