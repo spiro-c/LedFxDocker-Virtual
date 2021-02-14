@@ -1,4 +1,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/spirocekano/ledfx-virt?logo=docker&style=flat-square)](https://hub.docker.com/r/spirocekano/ledfx-virt)
+[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/spirocekano/ledfx-virt?logo=docker&style=flat-square)](https://hub.docker.com/r/spirocekano/ledfx-virt)
+[![Docker OS/ARCH](https://img.shields.io/badge/linux%2Famd64-yes-green)](https://hub.docker.com/r/spirocekano/ledfx-virt/tags)
+[![Docker OS/ARCH](https://img.shields.io/badge/linux%2Farmv7-yes-green)](https://hub.docker.com/r/spirocekano/ledfx-virt/tags)
 
 
 This is fork from [LedFxDocker](https://github.com/ShiromMakkad/LedFxDocker)
