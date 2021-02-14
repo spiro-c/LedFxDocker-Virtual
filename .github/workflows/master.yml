@@ -18,7 +18,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:      
-      DOCKER_REGISTRY: index.docker.io      
+#      DOCKER_REGISTRY: index.docker.io      
       DOCKER_IMAGE: spirocekano/ledfx-virt
       DOCKER_TAG: latest      
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -38,7 +38,7 @@ jobs:
       - name: Docker Login
         if: success()
         run: |        
-          echo "${DOCKER_PASSWORD}" | docker login ${DOCKER_REGISTRY} --username "${DOCKER_USERNAME}" --password-stdin
+          echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
         
       - name: Run BuildX
         if: success()
