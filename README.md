@@ -1,4 +1,4 @@
-[![Docker Pulls](https://img.shields.io/docker/pulls/spirocekano/ledfx-virtuals?logo=docker&style=flat-square)](https://hub.docker.com/r/spirocekano/ledfx-virtuals)
+[![Docker Pulls](https://img.shields.io/docker/pulls/spirocekano/ledfx-virt?logo=docker&style=flat-square)](https://hub.docker.com/r/spirocekano/ledfx-virt)
 
 
 This is fork from [LedFxDocker](https://github.com/ShiromMakkad/LedFxDocker)
@@ -10,7 +10,7 @@ A Docker Image for the latest Virtuals branch of [LedFx](https://github.com/LedF
 Compiling LedFx to run on different systems is difficult because of all the dependencies. It's especially difficult on a Raspberry Pi (building LedFx on ARM takes over 2 hours). This image has everything built for you, and it can get audio from a [Snapcast server](https://github.com/badaix/snapcast) or a [named pipe](https://www.linuxjournal.com/article/2156).
 
 ## Supported Architectures
-This image supports `x86-64` . Docker will automatically pull the appropriate version. 
+This image supports `x86-64`and `arm` . Docker will automatically pull the appropriate version. 
 
 ## Setup
 ### docker-compose.yml
@@ -18,11 +18,10 @@ This image supports `x86-64` . Docker will automatically pull the appropriate ve
 version: '3'
 
 services:
-  ledfx-virtuals:
-    image: spirocekano/ledfx-virtuals
-    container_name: ledfx-virtuals
-    hostname: ledfx-virtuals
-    network_mode: host
+  ledfx-virt:
+    image: spirocekano/ledfx-virt
+    container_name: ledfx-virt
+    hostname: ledfx-virt
     environment: 
       - HOST=host.docker.internal
       - FORMAT=-r 44100 -f S16_LE -c 2
@@ -65,8 +64,8 @@ If you want to use a method not mentioned here or one that doesn't have an expli
 
 
 ## Support Information
-- Shell access while the container is running: `docker exec -it ledfx-virtuals /bin/bash`
-- Logs: `docker logs ledfx-virtuals`
+- Shell access while the container is running: `docker exec -it ledfx-virt /bin/bash`
+- Logs: `docker logs ledfx-virt`
 
 ## Todo
 - Add a Mopidy example
@@ -79,6 +78,6 @@ If you want to make local modifications to this image for development purposes o
 ```
 git clone https://github.com/spiro-c/LedFxDocker.git -b Virtuals
 cd LedFxDocker
-docker build -t spirocekano/ledfx-virtuals .
+docker build -t spirocekano/ledfx-virt .
 ```
  

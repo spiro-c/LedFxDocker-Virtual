@@ -7,6 +7,7 @@ avahi-daemon --daemonize --no-drop-root
 # Start the pulseaudio server
 rm -rf /var/run/pulse /var/lib/pulse /root/.config/pulse
 pulseaudio -D --verbose --exit-idle-time=-1 --system --disallow-exit
+pactl load-module module-null-sink sink_name=DummyOutput sink_properties=device.description="Virtual_Dummy_Output"
 
 if [[ -v FORMAT ]]; then
     ./pipe-audio.sh
@@ -16,6 +17,4 @@ if [[ -v HOST ]]; then
     ./snapcast.sh
 fi
 
-mkdir /app/ledfx-config
-mv -vn /app/config.yaml /app/ledfx-config/
-ledfx -c /app/ledfx-config 
+exec ledfx "$@"
