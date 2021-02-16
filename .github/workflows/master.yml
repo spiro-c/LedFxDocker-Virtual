@@ -38,8 +38,8 @@ jobs:
       - name: Docker Login
         if: success()
         run: |        
-          echo "${DOCKER_PASSWORD}" | docker login ${DOCKER_REGISTRY} --username "${DOCKER_USERNAME}" --password-stdin
+          echo "${DOCKER_PASSWORD}" | docker login  --username "${DOCKER_USERNAME}" --password-stdin
         
       - name: Run BuildX
         if: success()
-        run: docker buildx build --platform ${{ env.DOCKER_TARGET_PLATFORM }} --tag ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }} --file ./Dockerfile --output type=image,push=true .
+        run: docker buildx build --platform ${{ env.DOCKER_TARGET_PLATFORM }} --tag ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }} --file ./Dockerfile --output type=image,push=true .
