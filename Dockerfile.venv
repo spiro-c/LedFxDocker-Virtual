@@ -1,0 +1,34 @@
+# Create docker image from python:3.9-buster
+# This image serves as the base compile image
+
+############### COMPILE IMAGE ###############
+
+FROM python:3.9-buster AS venv
+
+WORKDIR /LedFx
+
+RUN set -ex \
+    && apt-get update  \
+    && apt-get install -y --no-install-recommends \
+    gcc \
+    git \
+    wget \
+    libatlas3-base \
+    portaudio19-dev \
+    pulseaudio \
+    && python -m venv /LedFx/venv \
+    && /LedFx/venv/bin/pip install --no-cache-dir --upgrade pip wheel setuptools
+
+# Set /LedFx/venv/bin to $PATH
+ENV PATH="/LedFx/venv/bin:$PATH"
+
+# Copy LedFx requirements from Github
+RUN wget -q -O /LedFx/requirements.txt https://raw.githubusercontent.com/LedFx/LedFx/Virtuals/requirements.txt
+
+#Install LedFx requirements build the wheel's and delete test *.pyc *.pyo files from venv for smaller final image
+RUN /LedFx/venv/bin/pip install --no-cache-dir -r requirements.txt \
+ && find /LedFx/venv \
+        \( -type d -a -name test -o -name tests \) \
+        -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
+        -exec rm -rf '{}' \+
+CMD ["/bin/bash"]

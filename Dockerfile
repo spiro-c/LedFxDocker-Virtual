@@ -1,24 +1,12 @@
-# first stage
-# https://www.docker.com/blog/containerized-python-development-part-1/
+# first stage use pre build venv image to compile LedFx
+FROM spirocekano/ledfx-virt:venv as compile-image
 
-FROM python:3.9-buster AS builder
+RUN /LedFx/venv/bin/pip install --no-cache git+https://github.com/LedFx/LedFx@Virtuals
 
-RUN set -ex \
-    && apt-get update  \
-    && apt-get install -y --no-install-recommends \
-    gcc \
-    git \
-    libatlas3-base \
-    portaudio19-dev \
-    pulseaudio
-# Install LedFx with pip’s --user option, all the files will be installed in the .local directory of the current user home directory.
-# That means all the files will end up in a single place for easily copy in second stage.
+# Create python:3.9-slim image
+# This image copies /LedFx/venv from compile-image for a smaller final image
 
-RUN pip install --user --no-cache git+https://github.com/LedFx/LedFx@Virtuals
-
-
-# second stage 
-
+############### BUILD IMAGE ###############
 FROM python:3.9-slim-buster
 
 RUN set -ex \
@@ -44,9 +32,11 @@ RUN set -ex \
     && chmod 777 /var/run/avahi-daemon\                       
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
 
-COPY --from=builder /root/.local /root/.local
+# Copies /LedFx/venv from compile-image
+COPY --from=compile-image /LedFx/venv/ /LedFx/venv/
 
-ENV PATH=/root/.local/bin:$PATH
+# Set /LedFx/venv/bin to $PATH
+ENV PATH="/LedFx/venv/bin:$PATH"
 RUN adduser root pulse-access
 WORKDIR /app
 COPY setup-files/ /app/
