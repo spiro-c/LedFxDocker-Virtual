@@ -27,11 +27,11 @@ services:
         read_only: true
       - ./fifo:/tmp/snapcast/
   ledfx:
-    image: spirocekano/ledfx-virt:0.10.4-0.1.0
-    hostname: LedFX-pi
-    container_name: ledfx-pi
+    image: spirocekano/ledfx-virt:latest
+    hostname: LedFX
+    container_name: ledfx
     environment:
-      - HOST=snapcastserver-pi
+      - HOST=snapcastserver
 #      - FORMAT=-r 48000 -f S16_LE -c 2 -t raw
     ports:
       - 8888:8888

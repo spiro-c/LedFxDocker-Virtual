@@ -14,7 +14,7 @@ Then on your Windows PC go to  `Setting > Sound > Advanced sound options`, chang
    **Shairport Sync**
 
 
-When Shairport Sync is run whit  `-o pipe` it's output to FIFO file what is located in `/tmp` folder
+When Shairport Sync is run whit  `-o pipe` it's output to FIFO file what is located in `/tmp` folder also Shairport Sync must be run on the host network
 
 
    **Snapcast Server**
