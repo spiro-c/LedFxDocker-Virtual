@@ -8,7 +8,7 @@ TuneBlade is a simple tray utility that lets you stream system-wide audio to Air
 
 To avoid loop back echo when streaming from windows we need to use virtual audio output this can be done whit [VB-CABLE Virtual Audio Device](https://vb-audio.com/Cable/index.htm) after installation  in TuneBlade settings under Audio Capture we select `Specific Endpoint` and add `VoiceMeeter Input` like endpoint device 
 
-Then on your Windows PC go to  `Setting > Sound > Advanced sound options`, change audio output of your audio application to `VoiceMeeter Input` not if you using Web Browser (like Chrome, Firefox, Edge) to play sound from your pc  you cannot use same browser to lease from Snapcast server WebUI you need to use diferent browser or application like Snap.Net.
+Then on your Windows PC go to  `Setting > Sound > Advanced sound options`, change audio output of your audio application to `VoiceMeeter Input` note if you using Web Browser (like Chrome, Firefox, Edge) to play sound from your pc  you cannot use same browser to listen from Snapcast server WebUI you need to use diferent browser or application like Snap.Net.
 
 
    **Shairport Sync**
