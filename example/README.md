@@ -20,4 +20,4 @@ When Shairport Sync is run whit  `-o pipe` it's output to FIFO file what is loca
    **Snapcast Server**
 
 
-Provided `snapserver.conf` is override for the existing one if you using own Snapcast Server you can adjusted by just adding extra stream `stream = pipe:///tmp/snapcast/shairport-sync-audio?name=Airplay&sampleformat=44100:16:2` 
+Provided `snapserver.conf` is override for the existing one and will provide two streams in the Snapcast Server one from Mopidy and one from Shairport Sync you don't need to use Mopidy i you just like to stream from Windows Pc if you using own Snapcast Server you can adjusted by just adding extra stream `stream = pipe:///tmp/snapcast/shairport-sync-audio?name=Airplay&sampleformat=44100:16:2` 
