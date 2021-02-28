@@ -21,3 +21,12 @@ When Shairport Sync is run whit  `-o pipe` it's output to FIFO file what is loca
 
 
 Provided `snapserver.conf` is override for the existing one and will provide two streams in the Snapcast Server one from Mopidy and one from Shairport Sync you don't need to use Mopidy if you just like to stream from Windows Pc if you using own Snapcast Server you can adjusted by just adding extra stream `stream = pipe:///tmp/snapcast/shairport-sync-audio?name=Airplay&sampleformat=44100:16:2` 
+
+# Some Notes / Troubleshooting
+
+- Check owner and group of created folders (to change you can `sudo chown -c user:group *` inside the folder where your docker-compose.yml is. user:group was pi:pi for me)
+- [Snap.net](https://github.com/stijnvdb88/Snap.Net/releases) client could be useful
+- Clear ledfx-config and restart
+- Access snapcast via browser: http://your-pi-ip:1780
+- Access mopidy via browser: http://your-pi-ip:6680 -> iris
+- add `network_mode: host` to ledfx (and shairport) inside docker-compose.yml to enable WLED autodiscovery
