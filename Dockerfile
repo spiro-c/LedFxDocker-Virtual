@@ -1,7 +1,7 @@
 # first stage use pre build venv image to compile LedFx
 FROM spirocekano/ledfx-virt:venv as compile-image
 
-RUN /LedFx/venv/bin/pip install --no-cache git+https://github.com/LedFx/LedFx@Virtuals
+RUN /LedFx/venv/bin/pip install -U ledfx==0.10.1
 
 # Create python:3.9-slim image
 # This image copies /LedFx/venv from compile-image for a smaller final image
@@ -34,12 +34,15 @@ RUN set -ex \
 
 # Copies /LedFx/venv from compile-image
 COPY --from=compile-image /LedFx/venv/ /LedFx/venv/
-
+COPY pulseaudio.client.conf /etc/pulse/client.conf
+COPY asound.conf /etc/asound.conf
+RUN useradd -l --create-home ledfx
 # Set /LedFx/venv/bin to $PATH
 ENV PATH="/LedFx/venv/bin:$PATH"
-RUN adduser root pulse-access
-WORKDIR /app
-COPY setup-files/ /app/
-RUN chmod a+wrx /app/*.sh
+RUN adduser ledfx pulse-access
+WORKDIR /home/ledfx
+COPY setup-files/ /home/ledfx
+RUN chmod a+wrx /home/ledfx/*.sh
+USER ledfx
 EXPOSE 8888
 ENTRYPOINT ./entrypoint.sh

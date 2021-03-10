@@ -1,39 +1,16 @@
 version: '3'
 
 services:
-  mopidy:
-    image: ivdata/mopidy:latest
-    hostname: mopidy
-    container_name: mopidy
-#    environment:
-#      - PIP_PACKAGES=Mopidy-YouTube
-#      - UPDATE=1
-    ports:
-      - 6680:6680
-      - 6600:6600
-    volumes:
-      - ./fifo:/tmp/snapcast/
-      - ./music:/media/music
-      - ./mopidydata:/mopidy
-  snapserver:
-    image: ivdata/snapserver:latest
-    hostname: snapcastserver
-    container_name: snapcastserver
-    ports:
-      - 1704:1704
-      - 1705:1705
-      - 1780:1780
-    volumes:
-      - ./fifo:/tmp/snapcast/
   ledfx:
-    image: spirocekano/ledfx-virt:latest
-    hostname: LedFX
+    image: spirocekano/ledfx-pulse:latest
     container_name: LedFX
+    build:
+      context: .
     environment:
-      - HOST=snapcastserver
-#      - FORMAT=-r 48000 -f S16_LE -c 2 -t raw
+      - PULSE_SERVER=unix:/home/ledfx/audio/pulseaudio.socket
+      - PULSE_COOKIE=/tmp/pulseaudio.cookie
     ports:
       - 8888:8888
     volumes:
-      - ./ledfx-config:/root/.ledfx
-#      - ./fifo:/tmp/snapcast/
+      - ./ledfx-config:/home/ledfx/.ledfx
+      - ./audio:/home/ledfx/audio
