@@ -14,10 +14,35 @@ RUN set -ex \
     git \
     wget \
     libatlas3-base \
+    libaom0 \
+    libavcodec58 \
+    libavformat58 \
+    libavutil56 \
+    libbluray2 \
+    libcairo2 \
+    libchromaprint1 \
+    libcodec2-0.8.1 \
+    libcroco3 \
+    libdatrie1 \
+    libdrm2 \
+    libfontconfig1 \
+    libgdk-pixbuf2.0-0 \
+    libgme0 libgraphite2-3 \
+    libgsm1 \
+    libharfbuzz0b \
+    libmp3lame0 \
+    libmpg123-0 \
+    libogg0 libopenjp2-7 libopenmpt0 libopus0 libpango-1.0-0 \
+    libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0 librsvg2-2 \
+    libshine3 libsnappy1v5 libsoxr0 libspeex1 libssh-gcrypt-4 \
+    libswresample3 libthai0 libtheora0 libtwolame0 libva-drm2 \
+    libva-x11-2 libva2 libvdpau1 libvorbis0a libvorbisenc2 libvorbisfile3 \
+    libvpx5 libwavpack1 libwebp6 libwebpmux3 libx264-155 libx265-165 \
+    libxcb-render0 libxcb-shm0 libxfixes3 libxrender1 libxvidcore4 libzvbi0 \
     portaudio19-dev \
     pulseaudio \
     && python -m venv /LedFx/venv \
-    && /LedFx/venv/bin/pip install --no-cache-dir --upgrade pip wheel setuptools
+    && /LedFx/venv/bin/pip install --no-cache-dir --upgrade pip wheel setuptools aubio numpy
 
 # Set /LedFx/venv/bin to $PATH
 ENV PATH="/LedFx/venv/bin:$PATH"
