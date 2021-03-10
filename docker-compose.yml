@@ -12,5 +12,13 @@ services:
     ports:
       - 8888:8888
     volumes:
+      - type: bind
+        source: ${PWD}/asound.conf
+        target: /etc/asound.conf
+        read_only: true
+      - type: bind
+        source: ${PWD}/pulseaudio.client.conf
+        target: /etc/pulse/client.conf
+        read_only: true  
       - ./ledfx-config:/home/ledfx/.ledfx
       - ./audio:/home/ledfx/audio
