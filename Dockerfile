@@ -1,7 +1,7 @@
 # first stage use pre build venv image to compile LedFx
 FROM spirocekano/ledfx-virt:venv as compile-image
 
-RUN /LedFx/venv/bin/pip install --no-cache git+https://github.com/LedFx/LedFx@Virtuals
+RUN /LedFx/venv/bin/pip install --no-cache git+https://github.com/LedFx/LedFx@dev
 
 # Create python:3.9-slim image
 # This image copies /LedFx/venv from compile-image for a smaller final image

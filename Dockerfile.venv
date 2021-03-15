@@ -42,13 +42,14 @@ RUN set -ex \
     portaudio19-dev \
     pulseaudio \
     && python -m venv /LedFx/venv \
-    && /LedFx/venv/bin/pip install --no-cache-dir --upgrade pip wheel setuptools aubio numpy
+    && /LedFx/venv/bin/pip install --no-cache-dir --upgrade pip wheel setuptools numpy \
+    && /LedFx/venv/bin/pip install --no-cache-dir --upgrade aubio
 
 # Set /LedFx/venv/bin to $PATH
 ENV PATH="/LedFx/venv/bin:$PATH"
 
 # Copy LedFx requirements from Github
-RUN wget -q -O /LedFx/requirements.txt https://raw.githubusercontent.com/LedFx/LedFx/Virtuals/requirements.txt
+RUN wget -q -O /LedFx/requirements.txt https://raw.githubusercontent.com/LedFx/LedFx/dev/requirements.txt
 
 #Install LedFx requirements build the wheel's and delete test *.pyc *.pyo files from venv for smaller final image
 RUN /LedFx/venv/bin/pip install --no-cache-dir -r requirements.txt \
