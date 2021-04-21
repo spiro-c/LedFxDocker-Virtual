@@ -7,40 +7,41 @@ FROM python:3.9-buster AS venv
 
 WORKDIR /LedFx
 
-RUN set -ex \
-    && apt-get update  \
-    && apt-get install -y --no-install-recommends \
-    gcc \
-    git \
-    wget \
-    libatlas3-base \
-    libaom0 \
-    libavcodec58 \
-    libavformat58 \
-    libavutil56 \
-    libbluray2 \
-    libcairo2 \
-    libchromaprint1 \
-    libcodec2-0.8.1 \
-    libcroco3 \
-    libdatrie1 \
-    libdrm2 \
-    libfontconfig1 \
-    libgdk-pixbuf2.0-0 \
-    libgme0 libgraphite2-3 \
-    libgsm1 \
-    libharfbuzz0b \
-    libmp3lame0 \
-    libmpg123-0 \
-    libogg0 libopenjp2-7 libopenmpt0 libopus0 libpango-1.0-0 \
-    libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0 librsvg2-2 \
-    libshine3 libsnappy1v5 libsoxr0 libspeex1 libssh-gcrypt-4 \
-    libswresample3 libthai0 libtheora0 libtwolame0 libva-drm2 \
-    libva-x11-2 libva2 libvdpau1 libvorbis0a libvorbisenc2 libvorbisfile3 \
-    libvpx5 libwavpack1 libwebp6 libwebpmux3 libx264-155 libx265-165 \
-    libxcb-render0 libxcb-shm0 libxfixes3 libxrender1 libxvidcore4 libzvbi0 \
-    portaudio19-dev \
-    pulseaudio \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc=4:8.3.0-1 \
+    git=1:2.20.1-2+deb10u3 \
+    libatlas3-base=3.10.3-8 \
+    zlib1g-dev=1:1.2.11.dfsg-1 \
+    portaudio19-dev=19.6.0-1+deb10u1 \
+    python3-dev=3.7.3-1 \
+    \
+    # Pillow dependencies for dev branch 
+    libfreetype6-dev=2.9.1-3+deb10u2 \
+    libfribidi-dev=1.0.5-3.1+deb10u1 \
+    libharfbuzz-dev=2.3.1-1 \
+    libjpeg-turbo-progs=1:1.5.2-2+deb10u1 \
+    libjpeg62-turbo-dev=1:1.5.2-2+deb10u1 \
+    liblcms2-dev=2.9-3 \
+    libopenjp2-7-dev=2.3.0-2+deb10u2 \
+    tcl8.6-dev=8.6.9+dfsg-2 \
+    tk8.6-dev=8.6.9-2 \
+    libtiff5-dev=4.1.0+git191117-2~deb10u2 \
+    \
+    # aubio dependencies 
+    python3-aubio=0.4.6-2 \
+    python-aubio=0.4.6-2 \
+    aubio-tools=0.4.6-2 \
+    libavcodec-dev=7:4.1.6-1~deb10u1 \
+    libavformat-dev=7:4.1.6-1~deb10u1 \
+    libavutil-dev=7:4.1.6-1~deb10u1 \
+    libswresample-dev=7:4.1.6-1~deb10u1 \
+    libavresample-dev=7:4.1.6-1~deb10u1 \
+    libsndfile1-dev=1.0.28-6 \
+    librubberband-dev=1.8.1-7 \
+    libsamplerate0-dev=0.1.9-2 \
+    && rm -fr \
+    /var/{cache,log}/* \
+    /var/lib/apt/lists/* \
     && python -m venv /LedFx/venv \
     && /LedFx/venv/bin/pip install --no-cache-dir --upgrade pip wheel setuptools numpy \
     && /LedFx/venv/bin/pip install --no-cache-dir --upgrade aubio

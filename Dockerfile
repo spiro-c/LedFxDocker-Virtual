@@ -9,14 +9,14 @@ RUN /LedFx/venv/bin/pip install --no-cache git+https://github.com/LedFx/LedFx@de
 ############### BUILD IMAGE ###############
 FROM python:3.9-slim-buster
 
-RUN set -ex \
-    && apt-get update  \
-    && apt-get install -y --no-install-recommends avahi-daemon \
-    libnss-mdns \
-    portaudio19-dev \
-    pulseaudio \
-    libavahi-client3 \
-    alsa-utils \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    portaudio19-dev=19.6.0-1+deb10u1 \
+    pulseaudio=12.2-4+deb10u1 \
+    alsa-utils=1.1.8-2 \
+    libavformat58=7:4.1.6-1~deb10u1 \
+    avahi-daemon=0.7-4+deb10u1 \
+    libavahi-client3=0.7-4+deb10u1 \
+    libnss-mdns=0.14.1-1 \
     wget \
     # https://gnanesh.me/avahi-docker-non-root.html
     # Installing avahi-daemon to enable auto discovery on linux host if network_mode: host i pass to docker container                    
