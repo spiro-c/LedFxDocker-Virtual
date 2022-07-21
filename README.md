@@ -28,11 +28,12 @@ services:
     environment: 
       - HOST=host.docker.internal
       - FORMAT=-r 44100 -f S16_LE -c 2
-    ports:
-      - 8888:8888
+    network_mode: host
     volumes:
       - ./ledfx-config:/root/.ledfx
       - ~/audio:/app/audio
+    devices:
+      - /dev/snd:/dev/snd
 ```
 ### Volumes
 Volume | Function 
