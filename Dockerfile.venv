@@ -3,7 +3,7 @@
 
 ############### COMPILE IMAGE ###############
 
-FROM python:3.9-buster AS venv
+FROM python:3.10.6-buster AS venv
 
 WORKDIR /LedFx
 
