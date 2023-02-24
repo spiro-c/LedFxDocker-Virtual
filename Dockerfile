@@ -7,7 +7,7 @@ RUN /LedFx/venv/bin/pip install --no-cache git+https://github.com/LedFx/LedFx@de
 # This image copies /LedFx/venv from compile-image for a smaller final image
 
 ############### BUILD IMAGE ###############
-FROM python:3.9-slim-buster
+FROM python:3.11-slim-buster
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     portaudio19-dev=19.6.0-1+deb10u1 \
